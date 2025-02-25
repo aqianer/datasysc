@@ -1,3 +1,5 @@
+create database datasysc;
+
 -- 成就进度相关表
 # CREATE TABLE my_achievements (
 #     achievement_name VARCHAR(50) PRIMARY KEY COMMENT '成就名称',
@@ -30,6 +32,7 @@ drop table achievements;
 -- 用户成就表
 CREATE TABLE user_achievements
 (
+    id                    INT AUTO_INCREMENT PRIMARY KEY,
     user_id               INT NOT NULL,
     achievement_id        INT NOT NULL,
     achievement_record_id INT      DEFAULT 0 COMMENT '与该成就相关的记录 ID',
@@ -51,23 +54,47 @@ drop table user_achievements;
 # ) COMMENT ='示例：
 # ("2025-02-23", 480, 420, 0.72)';
 
--- 计划表（根据toggl的goal作为计划，由哪些Project）
+-- 计划表,前端界面设置计划，将toggl，和github的工程信息作为下拉选择框选项（根据toggl的goal作为计划，由哪些Project）
 CREATE TABLE personal_plans
 (
-    plan_id             INT AUTO_INCREMENT PRIMARY KEY,
+    id                  INT AUTO_INCREMENT PRIMARY KEY,
+    plan_id             INT            NOT NULL comment '计划id',
     user_id             INT            NOT NULL,
     plan_name           VARCHAR(30)    NOT NULL COMMENT '计划名',
-    plan_type           tinyint        not null comment '计划类型 1-coding技能，2-健身计划，3-',
-    reference_project   int comment '根据计划类型，计划关联项目',
+    toggl_project_id    int            NOT NULL comment '根据计划类型，计划关联toggl项目id',
+    repo_id             INT            NOT NULL comment '此计划关联的GitHub project',
     daily_plan_duration DECIMAL(10, 2) NOT NULL comment '计划每天投入时长',
-    tag_list            JSON           NOT NULL,
-    project_list        JSON           NOT NULL,
+    tag_list            JSON           NOT NULL COMMENT '计划的标签组，结构示例：
+        {
+            "tags": [
+                {
+                    "id": 17701710,
+                    "name": "#dev"
+                }
+            ]
+        }',
+    project_list        JSON           NOT NULL COMMENT '计划的标签组，结构示例：
+        {
+            "projects": [
+                {
+                    "id": 209428614,
+                    "workspace_id": 9240087,
+                    "name": "搭建可视化成果展示系统"
+                }
+            ]
+        }',
     create_time         DATETIME       NOT NULL,
     update_time         DATETIME       NOT NULL COMMENT '更新时间',
-    deadline            DATE           NOT NULL COMMENT '截止时间'
+    deadline            DATE           NOT NULL COMMENT '截止时间',
+    plan_status         int            not null COMMENT '计划的状态 0-延期，1-已完成，2-进行中，3-废弃',
+    plan_type           int            not null comment '计划类型是否加入打卡计划衡量标准，1-已加入每日必做，0-未加入，2-已加入但非每日必做'
 ) ENGINE = InnoDB;
 
+
+
 drop TABLE personal_plans;
+
+-- leetcode数据
 
 -- toggl的数据表
 CREATE TABLE toggl_datas
@@ -90,7 +117,7 @@ drop TABLE toggl_datas;
 CREATE TABLE github_events
 (
     id             INT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '自增主键',
-    local_user_id  INT          NOT NULL COMMENT '关联本地用户系统ID',
+    user_id        INT          NOT NULL COMMENT '关联本地用户系统ID',
     github_user_id BIGINT       NOT NULL COMMENT 'GitHub用户数字ID',
     event_type     VARCHAR(30)  NOT NULL COMMENT '事件类型（见附录）',
     repo_id        BIGINT       NOT NULL COMMENT '仓库数字ID',
@@ -123,19 +150,62 @@ CREATE TABLE github_events
             }
         }',
 
-    INDEX idx_user_activity (local_user_id, event_date),
+    INDEX idx_user_activity (user_id, event_date),
     INDEX idx_event_analysis (event_type, repo_id, event_date),
     INDEX idx_time_series (event_time)
 ) ENGINE = InnoDB
     COMMENT ='GitHub事件核心存储表';
 
 
--- 简化Anki记录
-CREATE TABLE anki_logs
+# -- 简化Anki记录
+# CREATE TABLE anki_logs
+# (
+#     card_id      VARCHAR(20),
+#     review_date  DATE,
+#     memory_level TINYINT COMMENT '1-5记忆强度',
+#     PRIMARY KEY (card_id, review_date)
+# ) COMMENT ='示例：
+# ("算法-二叉树", "2025-02-23", 4)';
+
+
+-- 如何根据综合各计划的时间设计一定的算法，判定为打卡成就
+
+CREATE TABLE daily_status
 (
-    card_id      VARCHAR(20),
-    review_date  DATE,
-    memory_level TINYINT COMMENT '1-5记忆强度',
-    PRIMARY KEY (card_id, review_date)
-) COMMENT ='示例：
-("算法-二叉树", "2025-02-23", 4)';
+    record_id         BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '主键',
+    user_id           INT     NOT NULL COMMENT '关联用户ID',
+    record_date       DATE    NOT NULL COMMENT '记录日期（格式：2025-02-25）',
+
+    -- 计划完成状态存储
+    plan_status       JSON    NOT NULL COMMENT '计划完成详情，结构示例：
+        {
+            "planA": {
+                "completed": true,
+                "plan_type": 1,
+                "duration": 45
+            },
+            "planB": {
+                "completed": false,
+                "plan_type": 2,
+                "duration": 28
+            },
+            "planC": {
+                "completed": true,
+                "plan_type": 2,
+                "duration": 32
+            }
+        }',
+
+    -- 热力图专用字段
+    heat_level        TINYINT NOT NULL COMMENT '热力等级（0-4）：
+        0=未达标, 1=部分完成, 2=基本完成, 3=良好达成, 4=完美达成',
+    total_duration    SMALLINT UNSIGNED COMMENT '当日总有效时长（分钟）',
+    is_core_completed BOOL    NOT NULL COMMENT '核心计划是否完成',
+
+    -- 系统字段
+    created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
+    updated_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
+
+    UNIQUE KEY udx_user_date (user_id, record_date),
+    INDEX idx_heatmap (record_date, heat_level)
+) ENGINE = InnoDB COMMENT ='热力图数据存储表';

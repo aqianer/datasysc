@@ -7,6 +7,7 @@ import logging
 from datetime import datetime
 from pathlib import Path
 from sqlalchemy import create_engine, text
+import pytz
 
 def setup_logging():
     """配置日志系统"""
@@ -213,6 +214,84 @@ def update_config_token(email, password):
         print(f"获取API token失败: {e}")
         return False
 
+def save_github_events_to_db(events_data, engine, logger):
+    """将GitHub事件数据保存到数据库
+    
+    Args:
+        events_data: GitHub API返回的事件数据列表
+        engine: SQLAlchemy数据库引擎
+        logger: 日志记录器
+    """
+    try:
+        for event in events_data:
+            # 转换时间格式
+            event_time = datetime.strptime(
+                event['created_at'], 
+                '%Y-%m-%dT%H:%M:%SZ'
+            ).replace(tzinfo=pytz.UTC).astimezone(pytz.timezone('Asia/Shanghai'))
+            
+            # 准备基础数据
+            insert_data = {
+                'user_id': 1,  # 这里需要替换为实际的用户ID
+                'github_user_id': event['actor']['id'],
+                'event_type': event['type'],
+                'repo_id': event['repo']['id'],
+                'repo_name': event['repo']['name'],
+                'repo_url': f"https://github.com/{event['repo']['name']}",
+                'event_time': event_time,  # 使用转换后的时间
+                'commit_count': 0,
+                'code_changes': '{}',
+                'event_specific': '{}'
+            }
+            
+            # 处理特定事件类型的数据
+            if event['type'] == 'PushEvent':
+                insert_data['commit_count'] = len(event['payload'].get('commits', []))
+                # 这里可以添加代码变更统计的处理
+                
+            # 保存事件特有数据
+            event_specific = {}
+            if event['type'] == 'PullRequestEvent':
+                pr_data = event['payload']['pull_request']
+                event_specific['PullRequest'] = {
+                    'action': event['payload']['action'],
+                    'number': pr_data['number'],
+                    'state': pr_data['state'],
+                    'comments': pr_data.get('comments', 0)
+                }
+            elif event['type'] == 'IssuesEvent':
+                issue_data = event['payload']['issue']
+                event_specific['Issue'] = {
+                    'number': issue_data['number'],
+                    'title': issue_data['title']
+                }
+            
+            insert_data['event_specific'] = json.dumps(event_specific)
+            
+            # 执行插入
+            insert_sql = """
+            INSERT INTO github_events (
+                user_id, github_user_id, event_type, repo_id, 
+                repo_name, repo_url, event_time, commit_count,
+                code_changes, event_specific
+            ) VALUES (
+                :user_id, :github_user_id, :event_type, :repo_id,
+                :repo_name, :repo_url, :event_time, :commit_count,
+                :code_changes, :event_specific
+            )
+            """
+            
+            with engine.connect() as conn:
+                result = conn.execute(text(insert_sql), insert_data)
+                conn.commit()
+                logger.debug(f"GitHub事件已保存到数据库，ID: {result.lastrowid}")
+        
+        logger.info(f"成功保存 {len(events_data)} 条GitHub事件数据")
+            
+    except Exception as e:
+        logger.error(f"保存GitHub事件数据到数据库失败: {e}", exc_info=True)
+        raise
+
 if __name__ == "__main__":
     try:
         # 设置日志
@@ -239,12 +318,14 @@ if __name__ == "__main__":
                 logger.error("Token更新失败")
                 exit(1)
         
-        # GitHub数据获取
+        # GitHub数据获取和保存
         github_events = asyncio.run(fetch_github_data(
             config['github']['username'],
             api_type='events',
             logger=logger
         ))
+        if github_events:
+            save_github_events_to_db(github_events, engine, logger)
         
         # Toggl数据获取和保存
         toggl_data, toggl_file = fetch_toggl_data(config['toggl']['api_token'], logger)
