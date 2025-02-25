@@ -1,5 +1,3 @@
-create database datasysc;
-
 -- 成就进度相关表
 # CREATE TABLE my_achievements (
 #     achievement_name VARCHAR(50) PRIMARY KEY COMMENT '成就名称',
@@ -63,6 +61,9 @@ CREATE TABLE personal_plans
     plan_name           VARCHAR(30)    NOT NULL COMMENT '计划名',
     toggl_project_id    int            NOT NULL comment '根据计划类型，计划关联toggl项目id',
     repo_id             INT            NOT NULL comment '此计划关联的GitHub project',
+    plan_type           tinyint        not null comment '计划类型 1-coding技能，2-健身计划，3-业余技能提升，4-化工',
+    toggl_project_id    int            NOT NULL comment '根据计划类型，计划关联toggl项目id',
+    repo_id             INT            NOT NULL comment '此计划关联的GitHub project',
     daily_plan_duration DECIMAL(10, 2) NOT NULL comment '计划每天投入时长',
     tag_list            JSON           NOT NULL COMMENT '计划的标签组，结构示例：
         {
@@ -88,6 +89,9 @@ CREATE TABLE personal_plans
     deadline            DATE           NOT NULL COMMENT '截止时间',
     plan_status         int            not null COMMENT '计划的状态 0-延期，1-已完成，2-进行中，3-废弃',
     plan_type           int            not null comment '计划类型是否加入打卡计划衡量标准，1-已加入每日必做，0-未加入，2-已加入但非每日必做'
+    deadline            DATE           NOT NULL COMMENT '截止时间',
+    plan_status         int            not null COMMENT '计划的状态 0-延期，1-已完成，2-进行中',
+    daily_check_index   int            not null comment '是否加入打卡计划衡量标准，1-已加入每日必做，0-已加入，2-已加入但非每日必做'
 ) ENGINE = InnoDB;
 
 
