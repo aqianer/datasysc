@@ -70,7 +70,8 @@ CREATE TABLE personal_plans
     create_time         DATETIME       NOT NULL,
     update_time         DATETIME       NOT NULL COMMENT '更新时间',
     deadline            DATE           NOT NULL COMMENT '截止时间',
-    status              int            not null COMMENT '计划的状态'
+    plan_status         int            not null COMMENT '计划的状态 0-延期，1-已完成，2-进行中',
+    daily_check_index   int            not null comment '是否加入打卡计划衡量标准，1-已加入每日必做，0-已加入，2-已加入但非每日必做'
 ) ENGINE = InnoDB;
 
 drop TABLE personal_plans;
@@ -147,16 +148,16 @@ CREATE TABLE github_events
 # ("算法-二叉树", "2025-02-23", 4)';
 
 
-
 -- 如何根据综合各计划的时间设计一定的算法，判定为打卡成就
 
-CREATE TABLE daily_status (
-    record_id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '主键',
-    user_id INT NOT NULL COMMENT '关联用户ID',
-    record_date DATE NOT NULL COMMENT '记录日期（格式：2025-02-25）',
+CREATE TABLE daily_status
+(
+    record_id         BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '主键',
+    user_id           INT     NOT NULL COMMENT '关联用户ID',
+    record_date       DATE    NOT NULL COMMENT '记录日期（格式：2025-02-25）',
 
     -- 计划完成状态存储
-    plan_status JSON NOT NULL COMMENT '计划完成详情，结构示例：
+    plan_status       JSON    NOT NULL COMMENT '计划完成详情，结构示例：
         {
             "planA": {"completed": true, "duration": 45},
             "planB": {"completed": false, "duration": 28},
@@ -164,20 +165,15 @@ CREATE TABLE daily_status (
         }',
 
     -- 热力图专用字段
-    heat_level TINYINT NOT NULL COMMENT '热力等级（0-4）：
+    heat_level        TINYINT NOT NULL COMMENT '热力等级（0-4）：
         0=未达标, 1=部分完成, 2=基本完成, 3=良好达成, 4=完美达成',
-    total_duration SMALLINT UNSIGNED COMMENT '当日总有效时长（分钟）',
-    is_core_completed BOOL NOT NULL COMMENT '核心计划是否完成',
+    total_duration    SMALLINT UNSIGNED COMMENT '当日总有效时长（分钟）',
+    is_core_completed BOOL    NOT NULL COMMENT '核心计划是否完成',
 
     -- 系统字段
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
+    created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
+    updated_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
 
     UNIQUE KEY udx_user_date (user_id, record_date),
     INDEX idx_heatmap (record_date, heat_level)
-) ENGINE=InnoDB COMMENT='热力图数据存储表';
-
-
-
-
-
+) ENGINE = InnoDB COMMENT ='热力图数据存储表';
