@@ -1,0 +1,79 @@
+2025-02-23 12:17:35,525 - DataSync - INFO - 开始数据同步任务
+2025-02-23 12:17:35,527 - DataSync - INFO - 开始获取GitHub用户 aqianer 的events数据
+2025-02-23 12:17:36,128 - DataSync - INFO - GitHub events 数据已保存到文件: E:\pythonProject\datasysc\data\2025\02\23\github\events_20250223_121736.json
+2025-02-23 12:17:36,130 - DataSync - INFO - 开始获取GitHub用户 aqianer 的actions数据
+2025-02-23 12:17:36,632 - DataSync - ERROR - 获取GitHub actions 数据失败: 404, message='Not Found', url='https://api.github.com/users/aqianer/actions'
+Traceback (most recent call last):
+  File "E:\pythonProject\datasysc\fetch.py", line 74, in fetch_github_data
+    response.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\aiohttp\client_reqrep.py", line 1161, in raise_for_status
+    raise ClientResponseError(
+    ...<5 lines>...
+    )
+aiohttp.client_exceptions.ClientResponseError: 404, message='Not Found', url='https://api.github.com/users/aqianer/actions'
+2025-02-23 12:17:36,638 - DataSync - INFO - 开始获取Toggl时间条目数据
+2025-02-23 12:17:37,576 - DataSync - INFO - Toggl时间条目数据已保存到文件: E:\pythonProject\datasysc\data\2025\02\23\toggl\time_entries_20250223_121737.json
+2025-02-23 12:17:37,576 - DataSync - INFO - 数据同步任务完成
+2025-02-23 14:22:43,276 - DataSync - INFO - 开始数据同步任务
+2025-02-23 14:22:43,277 - DataSync - INFO - 开始获取GitHub用户 aqianer 的events数据
+2025-02-23 14:22:44,037 - DataSync - INFO - GitHub events 数据已保存到文件: e:\pythonProject\datasysc\data\2025\02\23\github\events_20250223_142244.json
+2025-02-23 14:22:44,038 - DataSync - INFO - 开始获取GitHub用户 aqianer 的actions数据
+2025-02-23 14:22:44,038 - DataSync - ERROR - 不支持的API类型: actions
+2025-02-23 14:22:44,039 - DataSync - INFO - 开始获取Toggl时间条目数据
+2025-02-23 14:22:44,955 - DataSync - INFO - Toggl时间条目数据已保存到文件: e:\pythonProject\datasysc\data\2025\02\23\toggl\time_entries_20250223_142244.json
+2025-02-23 14:22:44,956 - DataSync - INFO - 数据同步任务完成
+2025-02-23 18:23:46,490 - DataSync - INFO - 开始数据同步任务
+2025-02-23 18:23:46,491 - DataSync - INFO - 开始获取GitHub用户 aqianer 的events数据
+2025-02-23 18:23:47,292 - DataSync - INFO - GitHub events 数据已保存到文件: E:\pythonProject\datasysc\data\2025\02\23\github\events_20250223_182347.json
+2025-02-23 18:23:47,295 - DataSync - INFO - 开始获取GitHub用户 aqianer 的actions数据
+2025-02-23 18:23:47,295 - DataSync - ERROR - 不支持的API类型: actions
+2025-02-23 18:23:47,296 - DataSync - INFO - 开始获取Toggl时间条目数据
+2025-02-23 18:23:52,629 - DataSync - INFO - Toggl时间条目数据已保存到文件: E:\pythonProject\datasysc\data\2025\02\23\toggl\time_entries_20250223_182352.json
+2025-02-23 18:23:52,630 - DataSync - INFO - 数据同步任务完成
+2025-02-23 19:10:54,959 - DataSync - INFO - 开始数据同步任务
+2025-02-23 19:10:54,960 - DataSync - INFO - 开始获取GitHub用户 aqianer 的events数据
+2025-02-23 19:10:55,728 - DataSync - INFO - GitHub events 数据已保存到文件: E:\pythonProject\datasysc\data\2025\02\23\github\events_20250223_191055.json
+2025-02-23 19:10:55,729 - DataSync - INFO - 开始获取GitHub用户 aqianer 的actions数据
+2025-02-23 19:10:55,729 - DataSync - ERROR - 不支持的API类型: actions
+2025-02-23 19:10:55,729 - DataSync - INFO - 开始获取Toggl时间条目数据
+2025-02-23 19:10:56,976 - DataSync - INFO - Toggl时间条目数据已保存到文件: E:\pythonProject\datasysc\data\2025\02\23\toggl\time_entries_20250223_191056.json
+2025-02-23 19:10:57,925 - DataSync - INFO - Toggl用户信息已保存到文件: E:\pythonProject\datasysc\data\2025\02\23\toggl\user_info_20250223_191056.json
+2025-02-23 19:10:57,926 - DataSync - INFO - 数据同步任务完成
+2025-02-23 20:00:53,754 - DataSync - INFO - 开始数据同步任务
+2025-02-23 20:00:53,755 - DataSync - INFO - 开始获取GitHub用户 aqianer 的events数据
+2025-02-23 20:00:54,948 - DataSync - INFO - GitHub events 数据已保存到文件: e:\pythonProject\datasysc\data\2025\02\23\github\events_20250223_200054.json
+2025-02-23 20:00:54,951 - DataSync - INFO - 开始获取GitHub用户 aqianer 的actions数据
+2025-02-23 20:00:54,951 - DataSync - ERROR - 不支持的API类型: actions
+2025-02-23 20:00:54,951 - DataSync - INFO - 开始获取Toggl用户数据
+2025-02-23 20:01:00,285 - DataSync - INFO - Toggl用户数据已保存到文件: e:\pythonProject\datasysc\data\2025\02\23\toggl\user_data_20250223_200100.json
+2025-02-23 20:01:00,286 - DataSync - INFO - 数据同步任务完成
+2025-02-23 20:10:30,747 - DataSync - INFO - 开始数据同步任务
+2025-02-23 20:10:30,748 - DataSync - INFO - 开始获取GitHub用户 aqianer 的events数据
+2025-02-23 20:10:31,384 - DataSync - INFO - GitHub events 数据已保存到文件: E:\pythonProject\datasysc\data\2025\02\23\github\events_20250223_201031.json
+2025-02-23 20:10:31,386 - DataSync - INFO - 开始获取GitHub用户 aqianer 的actions数据
+2025-02-23 20:10:31,386 - DataSync - ERROR - 不支持的API类型: actions
+2025-02-23 20:10:31,386 - DataSync - INFO - 开始获取Toggl用户数据
+2025-02-23 20:10:32,276 - DataSync - INFO - Toggl用户数据已保存到文件: E:\pythonProject\datasysc\data\2025\02\23\toggl\user_data_20250223_201032.json
+2025-02-23 20:10:32,276 - DataSync - INFO - 数据同步任务完成
+2025-02-23 23:32:00,947 - DataSync - INFO - 开始数据同步任务
+2025-02-23 23:32:01,004 - DataSync - INFO - 数据库连接成功
+2025-02-23 23:32:01,005 - DataSync - INFO - 开始获取GitHub用户 aqianer 的events数据
+2025-02-23 23:32:01,781 - DataSync - INFO - GitHub events 数据已保存到文件: e:\pythonProject\datasysc\data\2025\02\23\github\events_20250223_233201.json
+2025-02-23 23:32:01,782 - DataSync - INFO - 开始获取Toggl用户数据
+2025-02-23 23:32:03,105 - DataSync - INFO - Toggl用户数据已保存到文件: e:\pythonProject\datasysc\data\2025\02\23\toggl\user_data_20250223_233203.json
+2025-02-23 23:32:03,114 - DataSync - ERROR - 保存Toggl数据到数据库失败: name 'text' is not defined
+Traceback (most recent call last):
+  File "e:\pythonProject\datasysc\fetch.py", line 268, in save_toggl_data_to_db
+    result = conn.execute(text(insert_sql), insert_data)
+                          ^^^^
+NameError: name 'text' is not defined. Did you mean: 'next'?
+2025-02-23 23:32:03,116 - DataSync - ERROR - 发生未知错误: name 'text' is not defined
+Traceback (most recent call last):
+  File "e:\pythonProject\datasysc\fetch.py", line 314, in <module>
+    save_toggl_data_to_db(toggl_result, engine, logger)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "e:\pythonProject\datasysc\fetch.py", line 268, in save_toggl_data_to_db
+    result = conn.execute(text(insert_sql), insert_data)
+                          ^^^^
+NameError: name 'text' is not defined. Did you mean: 'next'?

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 3818269523,
+    "workspace_id": 9240087,
+    "project_id": 209428614,
+    "task_id": null,
+    "billable": false,
+    "start": "2025-02-22T12:28:35+00:00",
+    "stop": null,
+    "duration": -1740227315,
+    "description": "技术实践",
+    "tags": [
+      "#dev"
+    ],
+    "tag_ids": [
+      17701710
+    ],
+    "duronly": true,
+    "at": "2025-02-22T12:28:39.957244Z",
+    "server_deleted_at": null,
+    "user_id": 11810862,
+    "uid": 11810862,
+    "wid": 9240087,
+    "pid": 209428614
+  },
+  {
+    "id": 3818269454,
+    "workspace_id": 9240087,
+    "project_id": 209428614,
+    "task_id": null,
+    "billable": false,
+    "start": "2025-02-22T12:28:24+00:00",
+    "stop": "2025-02-22T12:28:35+00:00",
+    "duration": 11,
+    "description": "技术实践",
+    "tags": [
+      "#dev"
+    ],
+    "tag_ids": [
+      17701710
+    ],
+    "duronly": true,
+    "at": "2025-02-22T12:28:39.99781Z",
+    "server_deleted_at": null,
+    "user_id": 11810862,
+    "uid": 11810862,
+    "wid": 9240087,
+    "pid": 209428614
+  },
+  {
+    "id": 3818266109,
+    "workspace_id": 9240087,
+    "project_id": 209428614,
+    "task_id": null,
+    "billable": false,
+    "start": "2025-02-22T12:17:54+00:00",
+    "stop": "2025-02-22T12:28:24+00:00",
+    "duration": 630,
+    "description": "技术实践",
+    "tags": [
+      "#dev"
+    ],
+    "tag_ids": [
+      17701710
+    ],
+    "duronly": true,
+    "at": "2025-02-22T12:28:25.730966Z",
+    "server_deleted_at": null,
+    "user_id": 11810862,
+    "uid": 11810862,
+    "wid": 9240087,
+    "pid": 209428614
+  },
+  {
+    "id": 3818236618,
+    "workspace_id": 9240087,
+    "project_id": 209428614,
+    "task_id": null,
+    "billable": true,
+    "start": "2025-02-22T10:42:00+00:00",
+    "stop": "2025-02-22T10:59:00+00:00",
+    "duration": 1020,
+    "description": "",
+    "tags": [
+      "#dev"
+    ],
+    "tag_ids": [
+      17701710
+    ],
+    "duronly": true,
+    "at": "2025-02-22T11:05:31.479808Z",
+    "server_deleted_at": null,
+    "user_id": 11810862,
+    "uid": 11810862,
+    "wid": 9240087,
+    "pid": 209428614
+  },
+  {
+    "id": 3818184018,
+    "workspace_id": 9240087,
+    "project_id": 209428614,
+    "task_id": null,
+    "billable": false,
+    "start": "2025-02-22T07:37:37+00:00",
+    "stop": "2025-02-22T08:25:28+00:00",
+    "duration": 2871,
+    "description": "",
+    "tags": [
+      "#dev"
+    ],
+    "tag_ids": [
+      17701710
+    ],
+    "duronly": true,
+    "at": "2025-02-22T08:25:29.518601Z",
+    "server_deleted_at": null,
+    "user_id": 11810862,
+    "uid": 11810862,
+    "wid": 9240087,
+    "pid": 209428614
+  }
+]

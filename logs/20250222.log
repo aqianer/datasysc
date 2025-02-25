@@ -1,0 +1,12 @@
+2025-02-22 23:28:31,057 - DataSync - INFO - 开始数据同步任务
+2025-02-22 23:28:31,058 - DataSync - INFO - 开始获取GitHub用户 aqianer 的事件数据
+2025-02-22 23:28:31,611 - DataSync - INFO - GitHub数据已保存到文件: E:\pythonProject\datasysc\data\20250222\github\events_20250222_232831.json
+2025-02-22 23:28:31,611 - DataSync - INFO - 开始获取Toggl时间条目数据
+2025-02-22 23:28:32,635 - DataSync - INFO - Toggl时间条目数据已保存到文件: E:\pythonProject\datasysc\data\20250222\toggl\time_entries_20250222_232832.json
+2025-02-22 23:28:32,636 - DataSync - INFO - 数据同步任务完成
+2025-02-22 23:34:30,969 - DataSync - INFO - 开始数据同步任务
+2025-02-22 23:34:30,970 - DataSync - INFO - 开始获取GitHub用户 aqianer 的事件数据
+2025-02-22 23:34:31,544 - DataSync - INFO - GitHub数据已保存到文件: E:\pythonProject\datasysc\data\2025\02\22\github\events_20250222_233431.json
+2025-02-22 23:34:31,544 - DataSync - INFO - 开始获取Toggl时间条目数据
+2025-02-22 23:34:32,634 - DataSync - INFO - Toggl时间条目数据已保存到文件: E:\pythonProject\datasysc\data\2025\02\22\toggl\time_entries_20250222_233432.json
+2025-02-22 23:34:32,635 - DataSync - INFO - 数据同步任务完成

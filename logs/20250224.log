@@ -1,0 +1,519 @@
+2025-02-24 00:04:02,721 - DataSync - INFO - 开始数据同步任务
+2025-02-24 00:04:02,736 - DataSync - ERROR - 获取数据库引擎失败: No module named 'pymysql'
+Traceback (most recent call last):
+  File "e:\pythonProject\datasysc\fetch_loader.py", line 78, in get_database_engine
+    engine = create_engine(url, echo=False)
+  File "<string>", line 2, in create_engine
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\util\deprecations.py", line 281, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\create.py", line 602, in create_engine
+    dbapi = dbapi_meth(**dbapi_args)
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\dialects\mysql\pymysql.py", line 74, in import_dbapi
+    return __import__("pymysql")
+ModuleNotFoundError: No module named 'pymysql'
+2025-02-24 00:04:02,737 - DataSync - ERROR - 发生未知错误: No module named 'pymysql'
+Traceback (most recent call last):
+  File "e:\pythonProject\datasysc\fetch_loader.py", line 226, in <module>
+    engine = get_database_engine(logger)
+  File "e:\pythonProject\datasysc\fetch_loader.py", line 78, in get_database_engine
+    engine = create_engine(url, echo=False)
+  File "<string>", line 2, in create_engine
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\util\deprecations.py", line 281, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\create.py", line 602, in create_engine
+    dbapi = dbapi_meth(**dbapi_args)
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\dialects\mysql\pymysql.py", line 74, in import_dbapi
+    return __import__("pymysql")
+ModuleNotFoundError: No module named 'pymysql'
+2025-02-24 00:05:51,325 - DataSync - INFO - 开始数据同步任务
+2025-02-24 00:05:51,344 - DataSync - INFO - 数据库连接成功
+2025-02-24 00:05:51,345 - DataSync - INFO - 开始获取GitHub用户 aqianer 的events数据
+2025-02-24 00:05:52,100 - DataSync - INFO - GitHub events 数据已保存到文件: e:\pythonProject\datasysc\data\2025\02\24\github\events_20250224_000552.json
+2025-02-24 00:05:52,101 - DataSync - INFO - 开始获取Toggl用户数据
+2025-02-24 00:05:54,181 - DataSync - INFO - Toggl用户数据已保存到文件: e:\pythonProject\datasysc\data\2025\02\24\toggl\user_data_20250224_000554.json
+2025-02-24 00:05:54,205 - DataSync - ERROR - 保存Toggl数据到数据库失败: (sqlalchemy.exc.InvalidRequestError) A value is required for bind parameter 'user_id'
+[SQL: 
+        INSERT INTO toggl_datas (
+            user_id, toggl_accounts_id, clients, time_entries, 
+            workspace_list, tag_list, project_list, 
+            create_time, update_time
+        ) VALUES (
+            %(user_id)s, %(toggl_accounts_id)s, %(clients)s, %(time_entries)s,
+            %(workspace_list)s, %(tag_list)s, %(project_list)s,
+            %(create_time)s, %(update_time)s
+        )
+        ]
+[parameters: [{'toggl_accounts_id': 'AUZSnPSyoZfsiJL3khTo3M', 'clients': '[{"id": 66870499, "wid": 9240087, "archived": false, "name": "@", "at": "2025-02-21T16:03: ... (6439 characters truncated) ...  "pinned": false}]', 'create_time': datetime.datetime(2025, 2, 24, 0, 5, 54, 182915), 'update_time': datetime.datetime(2025, 2, 24, 0, 5, 54, 182919)}]]
+(Background on this error at: https://sqlalche.me/e/20/cd3x)
+Traceback (most recent call last):
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1812, in _execute_context
+    context = constructor(
+        dialect, self, conn, execution_options, *args, **kw
+    )
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 1398, in _init_compiled
+    compiled.construct_params(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        m,
+        ^^
+    ...<2 lines>...
+        extracted_parameters=extracted_parameters,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 1894, in construct_params
+    raise exc.InvalidRequestError(
+    ...<3 lines>...
+    )
+sqlalchemy.exc.InvalidRequestError: A value is required for bind parameter 'user_id' (Background on this error at: https://sqlalche.me/e/20/cd3x)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "e:\pythonProject\datasysc\fetch_loader.py", line 180, in save_toggl_data_to_db
+    result = conn.execute(text(insert_sql), insert_data)
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1416, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1818, in _execute_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str(statement), parameters, None, None
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1812, in _execute_context
+    context = constructor(
+        dialect, self, conn, execution_options, *args, **kw
+    )
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 1398, in _init_compiled
+    compiled.construct_params(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        m,
+        ^^
+    ...<2 lines>...
+        extracted_parameters=extracted_parameters,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 1894, in construct_params
+    raise exc.InvalidRequestError(
+    ...<3 lines>...
+    )
+sqlalchemy.exc.StatementError: (sqlalchemy.exc.InvalidRequestError) A value is required for bind parameter 'user_id'
+[SQL: 
+        INSERT INTO toggl_datas (
+            user_id, toggl_accounts_id, clients, time_entries, 
+            workspace_list, tag_list, project_list, 
+            create_time, update_time
+        ) VALUES (
+            %(user_id)s, %(toggl_accounts_id)s, %(clients)s, %(time_entries)s,
+            %(workspace_list)s, %(tag_list)s, %(project_list)s,
+            %(create_time)s, %(update_time)s
+        )
+        ]
+[parameters: [{'toggl_accounts_id': 'AUZSnPSyoZfsiJL3khTo3M', 'clients': '[{"id": 66870499, "wid": 9240087, "archived": false, "name": "@", "at": "2025-02-21T16:03: ... (6439 characters truncated) ...  "pinned": false}]', 'create_time': datetime.datetime(2025, 2, 24, 0, 5, 54, 182915), 'update_time': datetime.datetime(2025, 2, 24, 0, 5, 54, 182919)}]]
+(Background on this error at: https://sqlalche.me/e/20/cd3x)
+2025-02-24 00:05:54,210 - DataSync - ERROR - 发生未知错误: (sqlalchemy.exc.InvalidRequestError) A value is required for bind parameter 'user_id'
+[SQL: 
+        INSERT INTO toggl_datas (
+            user_id, toggl_accounts_id, clients, time_entries, 
+            workspace_list, tag_list, project_list, 
+            create_time, update_time
+        ) VALUES (
+            %(user_id)s, %(toggl_accounts_id)s, %(clients)s, %(time_entries)s,
+            %(workspace_list)s, %(tag_list)s, %(project_list)s,
+            %(create_time)s, %(update_time)s
+        )
+        ]
+[parameters: [{'toggl_accounts_id': 'AUZSnPSyoZfsiJL3khTo3M', 'clients': '[{"id": 66870499, "wid": 9240087, "archived": false, "name": "@", "at": "2025-02-21T16:03: ... (6439 characters truncated) ...  "pinned": false}]', 'create_time': datetime.datetime(2025, 2, 24, 0, 5, 54, 182915), 'update_time': datetime.datetime(2025, 2, 24, 0, 5, 54, 182919)}]]
+(Background on this error at: https://sqlalche.me/e/20/cd3x)
+Traceback (most recent call last):
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1812, in _execute_context
+    context = constructor(
+        dialect, self, conn, execution_options, *args, **kw
+    )
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 1398, in _init_compiled
+    compiled.construct_params(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        m,
+        ^^
+    ...<2 lines>...
+        extracted_parameters=extracted_parameters,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 1894, in construct_params
+    raise exc.InvalidRequestError(
+    ...<3 lines>...
+    )
+sqlalchemy.exc.InvalidRequestError: A value is required for bind parameter 'user_id' (Background on this error at: https://sqlalche.me/e/20/cd3x)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "e:\pythonProject\datasysc\fetch_loader.py", line 251, in <module>
+    save_toggl_data_to_db(toggl_data, engine, logger)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "e:\pythonProject\datasysc\fetch_loader.py", line 180, in save_toggl_data_to_db
+    result = conn.execute(text(insert_sql), insert_data)
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1416, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1818, in _execute_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str(statement), parameters, None, None
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1812, in _execute_context
+    context = constructor(
+        dialect, self, conn, execution_options, *args, **kw
+    )
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 1398, in _init_compiled
+    compiled.construct_params(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        m,
+        ^^
+    ...<2 lines>...
+        extracted_parameters=extracted_parameters,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\sql\compiler.py", line 1894, in construct_params
+    raise exc.InvalidRequestError(
+    ...<3 lines>...
+    )
+sqlalchemy.exc.StatementError: (sqlalchemy.exc.InvalidRequestError) A value is required for bind parameter 'user_id'
+[SQL: 
+        INSERT INTO toggl_datas (
+            user_id, toggl_accounts_id, clients, time_entries, 
+            workspace_list, tag_list, project_list, 
+            create_time, update_time
+        ) VALUES (
+            %(user_id)s, %(toggl_accounts_id)s, %(clients)s, %(time_entries)s,
+            %(workspace_list)s, %(tag_list)s, %(project_list)s,
+            %(create_time)s, %(update_time)s
+        )
+        ]
+[parameters: [{'toggl_accounts_id': 'AUZSnPSyoZfsiJL3khTo3M', 'clients': '[{"id": 66870499, "wid": 9240087, "archived": false, "name": "@", "at": "2025-02-21T16:03: ... (6439 characters truncated) ...  "pinned": false}]', 'create_time': datetime.datetime(2025, 2, 24, 0, 5, 54, 182915), 'update_time': datetime.datetime(2025, 2, 24, 0, 5, 54, 182919)}]]
+(Background on this error at: https://sqlalche.me/e/20/cd3x)
+2025-02-24 00:14:24,810 - DataSync - INFO - 开始数据同步任务
+2025-02-24 00:14:24,827 - DataSync - INFO - 数据库连接成功
+2025-02-24 00:14:24,828 - DataSync - INFO - 开始获取GitHub用户 aqianer 的events数据
+2025-02-24 00:14:25,465 - DataSync - INFO - GitHub events 数据已保存到文件: e:\pythonProject\datasysc\data\2025\02\24\github\events_20250224_001425.json
+2025-02-24 00:14:25,467 - DataSync - INFO - 开始获取Toggl用户数据
+2025-02-24 00:14:27,664 - DataSync - INFO - Toggl用户数据已保存到文件: e:\pythonProject\datasysc\data\2025\02\24\toggl\user_data_20250224_001427.json
+2025-02-24 00:14:27,675 - DataSync - ERROR - 保存Toggl数据到数据库失败: (pymysql.err.DataError) (1366, "Incorrect integer value: 'AUZSnPSyoZfsiJL3khTo3M' for column 'toggl_accounts_id' at row 1")
+[SQL: 
+        INSERT INTO toggl_datas (
+            user_id, toggl_accounts_id, clients, time_entries, 
+            workspace_list, tag_list, project_list, 
+            create_time, update_time
+        ) VALUES (
+            %(user_id)s, %(toggl_accounts_id)s, %(clients)s, %(time_entries)s,
+            %(workspace_list)s, %(tag_list)s, %(project_list)s,
+            %(create_time)s, %(update_time)s
+        )
+        ]
+[parameters: {'user_id': 1, 'toggl_accounts_id': 'AUZSnPSyoZfsiJL3khTo3M', 'clients': '[{"id": 66870499, "wid": 9240087, "archived": false, "name": "@", "at": "2025-02-21T16:03:08+00:00", "creator_id": 11810862, "total_count": 0}]', 'time_entries': '[{"id": 3818628535, "workspace_id": 9240087, "project_id": null, "task_id": null, "billable": false, "start": "2025-02-23T10:14:40+00:00", "stop": "2 ... (3387 characters truncated) ... only": true, "at": "2025-02-22T08:25:29.518601Z", "server_deleted_at": null, "user_id": 11810862, "uid": 11810862, "wid": 9240087, "pid": 209428614}]', 'workspace_list': '[{"id": 9240087, "organization_id": 9241576, "name": "Workspace", "premium": true, "business_ws": true, "admin": true, "role": "admin", "suspended_at ... (714 characters truncated) ... cal_enabled": true, "csv_upload": null, "subscription": null, "te_constraints": {}, "hide_start_end_times": false, "working_hours_in_minutes": null}]', 'tag_list': '[{"id": 17701710, "workspace_id": 9240087, "name": "#dev", "at": "2025-02-22T07:37:17.617952Z", "creator_id": 11810862}]', 'project_list': '[{"id": 209428614, "workspace_id": 9240087, "client_id": null, "name": "搭建可视化成果展示系统", "is_private": false, "active": true, "at": "2025-02-22T07:36:37 ... (1211 characters truncated) ... ": null, "users_count": null, "can_track_time": false, "start_date": "2025-02-23", "status": "active", "wid": 9240087, "cid": null, "pinned": false}]', 'create_time': datetime.datetime(2025, 2, 24, 0, 14, 27, 665421), 'update_time': datetime.datetime(2025, 2, 24, 0, 14, 27, 665423)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+Traceback (most recent call last):
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 825, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.DataError: (1366, "Incorrect integer value: 'AUZSnPSyoZfsiJL3khTo3M' for column 'toggl_accounts_id' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "e:\pythonProject\datasysc\fetch_loader.py", line 181, in save_toggl_data_to_db
+    result = conn.execute(text(insert_sql), insert_data)
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1416, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 825, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.DataError: (pymysql.err.DataError) (1366, "Incorrect integer value: 'AUZSnPSyoZfsiJL3khTo3M' for column 'toggl_accounts_id' at row 1")
+[SQL: 
+        INSERT INTO toggl_datas (
+            user_id, toggl_accounts_id, clients, time_entries, 
+            workspace_list, tag_list, project_list, 
+            create_time, update_time
+        ) VALUES (
+            %(user_id)s, %(toggl_accounts_id)s, %(clients)s, %(time_entries)s,
+            %(workspace_list)s, %(tag_list)s, %(project_list)s,
+            %(create_time)s, %(update_time)s
+        )
+        ]
+[parameters: {'user_id': 1, 'toggl_accounts_id': 'AUZSnPSyoZfsiJL3khTo3M', 'clients': '[{"id": 66870499, "wid": 9240087, "archived": false, "name": "@", "at": "2025-02-21T16:03:08+00:00", "creator_id": 11810862, "total_count": 0}]', 'time_entries': '[{"id": 3818628535, "workspace_id": 9240087, "project_id": null, "task_id": null, "billable": false, "start": "2025-02-23T10:14:40+00:00", "stop": "2 ... (3387 characters truncated) ... only": true, "at": "2025-02-22T08:25:29.518601Z", "server_deleted_at": null, "user_id": 11810862, "uid": 11810862, "wid": 9240087, "pid": 209428614}]', 'workspace_list': '[{"id": 9240087, "organization_id": 9241576, "name": "Workspace", "premium": true, "business_ws": true, "admin": true, "role": "admin", "suspended_at ... (714 characters truncated) ... cal_enabled": true, "csv_upload": null, "subscription": null, "te_constraints": {}, "hide_start_end_times": false, "working_hours_in_minutes": null}]', 'tag_list': '[{"id": 17701710, "workspace_id": 9240087, "name": "#dev", "at": "2025-02-22T07:37:17.617952Z", "creator_id": 11810862}]', 'project_list': '[{"id": 209428614, "workspace_id": 9240087, "client_id": null, "name": "搭建可视化成果展示系统", "is_private": false, "active": true, "at": "2025-02-22T07:36:37 ... (1211 characters truncated) ... ": null, "users_count": null, "can_track_time": false, "start_date": "2025-02-23", "status": "active", "wid": 9240087, "cid": null, "pinned": false}]', 'create_time': datetime.datetime(2025, 2, 24, 0, 14, 27, 665421), 'update_time': datetime.datetime(2025, 2, 24, 0, 14, 27, 665423)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2025-02-24 00:14:27,680 - DataSync - ERROR - 发生未知错误: (pymysql.err.DataError) (1366, "Incorrect integer value: 'AUZSnPSyoZfsiJL3khTo3M' for column 'toggl_accounts_id' at row 1")
+[SQL: 
+        INSERT INTO toggl_datas (
+            user_id, toggl_accounts_id, clients, time_entries, 
+            workspace_list, tag_list, project_list, 
+            create_time, update_time
+        ) VALUES (
+            %(user_id)s, %(toggl_accounts_id)s, %(clients)s, %(time_entries)s,
+            %(workspace_list)s, %(tag_list)s, %(project_list)s,
+            %(create_time)s, %(update_time)s
+        )
+        ]
+[parameters: {'user_id': 1, 'toggl_accounts_id': 'AUZSnPSyoZfsiJL3khTo3M', 'clients': '[{"id": 66870499, "wid": 9240087, "archived": false, "name": "@", "at": "2025-02-21T16:03:08+00:00", "creator_id": 11810862, "total_count": 0}]', 'time_entries': '[{"id": 3818628535, "workspace_id": 9240087, "project_id": null, "task_id": null, "billable": false, "start": "2025-02-23T10:14:40+00:00", "stop": "2 ... (3387 characters truncated) ... only": true, "at": "2025-02-22T08:25:29.518601Z", "server_deleted_at": null, "user_id": 11810862, "uid": 11810862, "wid": 9240087, "pid": 209428614}]', 'workspace_list': '[{"id": 9240087, "organization_id": 9241576, "name": "Workspace", "premium": true, "business_ws": true, "admin": true, "role": "admin", "suspended_at ... (714 characters truncated) ... cal_enabled": true, "csv_upload": null, "subscription": null, "te_constraints": {}, "hide_start_end_times": false, "working_hours_in_minutes": null}]', 'tag_list': '[{"id": 17701710, "workspace_id": 9240087, "name": "#dev", "at": "2025-02-22T07:37:17.617952Z", "creator_id": 11810862}]', 'project_list': '[{"id": 209428614, "workspace_id": 9240087, "client_id": null, "name": "搭建可视化成果展示系统", "is_private": false, "active": true, "at": "2025-02-22T07:36:37 ... (1211 characters truncated) ... ": null, "users_count": null, "can_track_time": false, "start_date": "2025-02-23", "status": "active", "wid": 9240087, "cid": null, "pinned": false}]', 'create_time': datetime.datetime(2025, 2, 24, 0, 14, 27, 665421), 'update_time': datetime.datetime(2025, 2, 24, 0, 14, 27, 665423)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+Traceback (most recent call last):
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 825, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.DataError: (1366, "Incorrect integer value: 'AUZSnPSyoZfsiJL3khTo3M' for column 'toggl_accounts_id' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "e:\pythonProject\datasysc\fetch_loader.py", line 252, in <module>
+    save_toggl_data_to_db(toggl_data, engine, logger)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "e:\pythonProject\datasysc\fetch_loader.py", line 181, in save_toggl_data_to_db
+    result = conn.execute(text(insert_sql), insert_data)
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1416, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\sql\elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\sqlalchemy\engine\default.py", line 942, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\cursors.py", line 153, in execute
+    result = self._query(query)
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\cursors.py", line 322, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 563, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 825, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 1199, in read
+    first_packet = self.connection._read_packet()
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\connections.py", line 775, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "D:\Program Files\Python\Python313\Lib\site-packages\pymysql\err.py", line 150, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.DataError: (pymysql.err.DataError) (1366, "Incorrect integer value: 'AUZSnPSyoZfsiJL3khTo3M' for column 'toggl_accounts_id' at row 1")
+[SQL: 
+        INSERT INTO toggl_datas (
+            user_id, toggl_accounts_id, clients, time_entries, 
+            workspace_list, tag_list, project_list, 
+            create_time, update_time
+        ) VALUES (
+            %(user_id)s, %(toggl_accounts_id)s, %(clients)s, %(time_entries)s,
+            %(workspace_list)s, %(tag_list)s, %(project_list)s,
+            %(create_time)s, %(update_time)s
+        )
+        ]
+[parameters: {'user_id': 1, 'toggl_accounts_id': 'AUZSnPSyoZfsiJL3khTo3M', 'clients': '[{"id": 66870499, "wid": 9240087, "archived": false, "name": "@", "at": "2025-02-21T16:03:08+00:00", "creator_id": 11810862, "total_count": 0}]', 'time_entries': '[{"id": 3818628535, "workspace_id": 9240087, "project_id": null, "task_id": null, "billable": false, "start": "2025-02-23T10:14:40+00:00", "stop": "2 ... (3387 characters truncated) ... only": true, "at": "2025-02-22T08:25:29.518601Z", "server_deleted_at": null, "user_id": 11810862, "uid": 11810862, "wid": 9240087, "pid": 209428614}]', 'workspace_list': '[{"id": 9240087, "organization_id": 9241576, "name": "Workspace", "premium": true, "business_ws": true, "admin": true, "role": "admin", "suspended_at ... (714 characters truncated) ... cal_enabled": true, "csv_upload": null, "subscription": null, "te_constraints": {}, "hide_start_end_times": false, "working_hours_in_minutes": null}]', 'tag_list': '[{"id": 17701710, "workspace_id": 9240087, "name": "#dev", "at": "2025-02-22T07:37:17.617952Z", "creator_id": 11810862}]', 'project_list': '[{"id": 209428614, "workspace_id": 9240087, "client_id": null, "name": "搭建可视化成果展示系统", "is_private": false, "active": true, "at": "2025-02-22T07:36:37 ... (1211 characters truncated) ... ": null, "users_count": null, "can_track_time": false, "start_date": "2025-02-23", "status": "active", "wid": 9240087, "cid": null, "pinned": false}]', 'create_time': datetime.datetime(2025, 2, 24, 0, 14, 27, 665421), 'update_time': datetime.datetime(2025, 2, 24, 0, 14, 27, 665423)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2025-02-24 00:16:07,710 - DataSync - INFO - 开始数据同步任务
+2025-02-24 00:16:07,728 - DataSync - INFO - 数据库连接成功
+2025-02-24 00:16:07,729 - DataSync - INFO - 开始获取GitHub用户 aqianer 的events数据
+2025-02-24 00:16:08,509 - DataSync - INFO - GitHub events 数据已保存到文件: e:\pythonProject\datasysc\data\2025\02\24\github\events_20250224_001608.json
+2025-02-24 00:16:08,511 - DataSync - INFO - 开始获取Toggl用户数据
+2025-02-24 00:16:09,488 - DataSync - INFO - Toggl用户数据已保存到文件: e:\pythonProject\datasysc\data\2025\02\24\toggl\user_data_20250224_001609.json
+2025-02-24 00:16:09,516 - DataSync - INFO - Toggl数据已保存到数据库，ID: 1
+2025-02-24 00:16:09,517 - DataSync - INFO - 数据同步任务完成

@@ -1,0 +1,20 @@
+{
+  "github": {
+    "username": "aqianer"
+  },
+  "toggl": {
+    "email": "375264725@qq.com",
+    "password": "C@o711026?",
+    "api_token": "05dbf9636686bc09fc37f76e7db8d358",
+    "default_workspace_id": 9240087
+  },
+  "database": {
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "123456",
+    "database": "data_load",
+    "charset": "utf8mb4"
+  }
+}

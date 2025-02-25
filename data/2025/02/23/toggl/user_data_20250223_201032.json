@@ -1,0 +1,368 @@
+{
+  "id": 11810862,
+  "api_token": "05dbf9636686bc09fc37f76e7db8d358",
+  "email": "375264725@qq.com",
+  "fullname": "操小刀",
+  "timezone": "Asia/Shanghai",
+  "2fa_enabled": false,
+  "toggl_accounts_id": "AUZSnPSyoZfsiJL3khTo3M",
+  "default_workspace_id": 9240087,
+  "beginning_of_week": 1,
+  "image_url": "https://assets.track.toggl.com/images/profile.png",
+  "created_at": "2025-02-21T15:58:44.918129Z",
+  "updated_at": "2025-02-22T09:00:15.847721Z",
+  "openid_email": null,
+  "openid_enabled": false,
+  "country_id": null,
+  "has_password": true,
+  "at": "2025-02-23T12:10:31.504328Z",
+  "intercom_hash": "75750c9dc96d2f7eeb574e23fa1bad8295f4ea38a74bf022fb5d2a039578ca27",
+  "oauth_providers": [
+    "apple"
+  ],
+  "tags": [
+    {
+      "id": 17701710,
+      "workspace_id": 9240087,
+      "name": "#dev",
+      "at": "2025-02-22T07:37:17.617952Z",
+      "creator_id": 11810862
+    }
+  ],
+  "clients": [
+    {
+      "id": 66870499,
+      "wid": 9240087,
+      "archived": false,
+      "name": "@",
+      "at": "2025-02-21T16:03:08+00:00",
+      "creator_id": 11810862,
+      "total_count": 0
+    }
+  ],
+  "time_entries": [
+    {
+      "id": 3818628535,
+      "workspace_id": 9240087,
+      "project_id": null,
+      "task_id": null,
+      "billable": false,
+      "start": "2025-02-23T10:14:40+00:00",
+      "stop": "2025-02-23T12:10:18+00:00",
+      "duration": 6938,
+      "description": "",
+      "tags": [],
+      "tag_ids": [],
+      "duronly": true,
+      "at": "2025-02-23T12:10:20.473697Z",
+      "server_deleted_at": null,
+      "user_id": 11810862,
+      "uid": 11810862,
+      "wid": 9240087
+    },
+    {
+      "id": 3818628153,
+      "workspace_id": 9240087,
+      "project_id": 209428614,
+      "task_id": null,
+      "billable": false,
+      "start": "2025-02-23T10:13:19+00:00",
+      "stop": "2025-02-23T10:14:40+00:00",
+      "duration": 81,
+      "description": "技术实践",
+      "tags": [
+        "#dev"
+      ],
+      "tag_ids": [
+        17701710
+      ],
+      "duronly": true,
+      "at": "2025-02-23T10:14:41.983856Z",
+      "server_deleted_at": null,
+      "user_id": 11810862,
+      "uid": 11810862,
+      "wid": 9240087,
+      "pid": 209428614
+    },
+    {
+      "id": 3818596619,
+      "workspace_id": 9240087,
+      "project_id": 209428614,
+      "task_id": null,
+      "billable": false,
+      "start": "2025-02-23T08:28:59+00:00",
+      "stop": "2025-02-23T10:13:19+00:00",
+      "duration": 6260,
+      "description": "技术实践",
+      "tags": [
+        "#dev"
+      ],
+      "tag_ids": [
+        17701710
+      ],
+      "duronly": true,
+      "at": "2025-02-23T10:13:20.125936Z",
+      "server_deleted_at": null,
+      "user_id": 11810862,
+      "uid": 11810862,
+      "wid": 9240087,
+      "pid": 209428614
+    },
+    {
+      "id": 3818533500,
+      "workspace_id": 9240087,
+      "project_id": 209428614,
+      "task_id": null,
+      "billable": false,
+      "start": "2025-02-23T03:54:09+00:00",
+      "stop": "2025-02-23T04:45:54+00:00",
+      "duration": 3105,
+      "description": "",
+      "tags": [
+        "#dev"
+      ],
+      "tag_ids": [
+        17701710
+      ],
+      "duronly": true,
+      "at": "2025-02-23T04:45:57.281902Z",
+      "server_deleted_at": null,
+      "user_id": 11810862,
+      "uid": 11810862,
+      "wid": 9240087,
+      "pid": 209428614
+    },
+    {
+      "id": 3818269523,
+      "workspace_id": 9240087,
+      "project_id": 209428614,
+      "task_id": null,
+      "billable": false,
+      "start": "2025-02-22T12:28:35+00:00",
+      "stop": "2025-02-22T15:46:46+00:00",
+      "duration": 11891,
+      "description": "技术实践",
+      "tags": [
+        "#dev"
+      ],
+      "tag_ids": [
+        17701710
+      ],
+      "duronly": true,
+      "at": "2025-02-22T15:46:48.485193Z",
+      "server_deleted_at": null,
+      "user_id": 11810862,
+      "uid": 11810862,
+      "wid": 9240087,
+      "pid": 209428614
+    },
+    {
+      "id": 3818269454,
+      "workspace_id": 9240087,
+      "project_id": 209428614,
+      "task_id": null,
+      "billable": false,
+      "start": "2025-02-22T12:28:24+00:00",
+      "stop": "2025-02-22T12:28:35+00:00",
+      "duration": 11,
+      "description": "技术实践",
+      "tags": [
+        "#dev"
+      ],
+      "tag_ids": [
+        17701710
+      ],
+      "duronly": true,
+      "at": "2025-02-22T12:28:39.99781Z",
+      "server_deleted_at": null,
+      "user_id": 11810862,
+      "uid": 11810862,
+      "wid": 9240087,
+      "pid": 209428614
+    },
+    {
+      "id": 3818266109,
+      "workspace_id": 9240087,
+      "project_id": 209428614,
+      "task_id": null,
+      "billable": false,
+      "start": "2025-02-22T12:17:54+00:00",
+      "stop": "2025-02-22T12:28:24+00:00",
+      "duration": 630,
+      "description": "技术实践",
+      "tags": [
+        "#dev"
+      ],
+      "tag_ids": [
+        17701710
+      ],
+      "duronly": true,
+      "at": "2025-02-22T12:28:25.730966Z",
+      "server_deleted_at": null,
+      "user_id": 11810862,
+      "uid": 11810862,
+      "wid": 9240087,
+      "pid": 209428614
+    },
+    {
+      "id": 3818236618,
+      "workspace_id": 9240087,
+      "project_id": 209428614,
+      "task_id": null,
+      "billable": true,
+      "start": "2025-02-22T10:42:00+00:00",
+      "stop": "2025-02-22T10:59:00+00:00",
+      "duration": 1020,
+      "description": "",
+      "tags": [
+        "#dev"
+      ],
+      "tag_ids": [
+        17701710
+      ],
+      "duronly": true,
+      "at": "2025-02-22T11:05:31.479808Z",
+      "server_deleted_at": null,
+      "user_id": 11810862,
+      "uid": 11810862,
+      "wid": 9240087,
+      "pid": 209428614
+    },
+    {
+      "id": 3818184018,
+      "workspace_id": 9240087,
+      "project_id": 209428614,
+      "task_id": null,
+      "billable": false,
+      "start": "2025-02-22T07:37:37+00:00",
+      "stop": "2025-02-22T08:25:28+00:00",
+      "duration": 2871,
+      "description": "",
+      "tags": [
+        "#dev"
+      ],
+      "tag_ids": [
+        17701710
+      ],
+      "duronly": true,
+      "at": "2025-02-22T08:25:29.518601Z",
+      "server_deleted_at": null,
+      "user_id": 11810862,
+      "uid": 11810862,
+      "wid": 9240087,
+      "pid": 209428614
+    }
+  ],
+  "projects": [
+    {
+      "id": 209428614,
+      "workspace_id": 9240087,
+      "client_id": null,
+      "name": "搭建可视化成果展示系统",
+      "is_private": false,
+      "active": true,
+      "at": "2025-02-22T07:36:37+00:00",
+      "created_at": "2025-02-22T07:36:37+00:00",
+      "server_deleted_at": null,
+      "color": "#d92b2b",
+      "billable": true,
+      "template": false,
+      "auto_estimates": false,
+      "estimated_hours": null,
+      "estimated_seconds": null,
+      "rate": null,
+      "rate_last_updated": null,
+      "currency": null,
+      "recurring": false,
+      "template_id": null,
+      "recurring_parameters": null,
+      "fixed_fee": null,
+      "actual_hours": 7,
+      "actual_seconds": 25869,
+      "total_count": 0,
+      "client_name": null,
+      "tasks_count": null,
+      "users_count": null,
+      "can_track_time": false,
+      "start_date": "2025-02-22",
+      "status": "active",
+      "wid": 9240087,
+      "cid": null,
+      "pinned": false
+    },
+    {
+      "id": 209437381,
+      "workspace_id": 9240087,
+      "client_id": null,
+      "name": "Java技术提升",
+      "is_private": false,
+      "active": true,
+      "at": "2025-02-23T10:16:18+00:00",
+      "created_at": "2025-02-23T10:16:18+00:00",
+      "server_deleted_at": null,
+      "color": "#bf7000",
+      "billable": true,
+      "template": false,
+      "auto_estimates": false,
+      "estimated_hours": null,
+      "estimated_seconds": null,
+      "rate": null,
+      "rate_last_updated": null,
+      "currency": null,
+      "recurring": false,
+      "template_id": null,
+      "recurring_parameters": null,
+      "fixed_fee": null,
+      "actual_hours": null,
+      "actual_seconds": null,
+      "total_count": 0,
+      "client_name": null,
+      "tasks_count": null,
+      "users_count": null,
+      "can_track_time": false,
+      "start_date": "2025-02-23",
+      "status": "active",
+      "wid": 9240087,
+      "cid": null,
+      "pinned": false
+    }
+  ],
+  "workspaces": [
+    {
+      "id": 9240087,
+      "organization_id": 9241576,
+      "name": "Workspace",
+      "premium": true,
+      "business_ws": true,
+      "admin": true,
+      "role": "admin",
+      "suspended_at": null,
+      "server_deleted_at": null,
+      "default_hourly_rate": null,
+      "rate_last_updated": null,
+      "default_currency": "USD",
+      "only_admins_may_create_projects": false,
+      "only_admins_may_create_tags": false,
+      "only_admins_see_team_dashboard": false,
+      "projects_billable_by_default": true,
+      "projects_private_by_default": true,
+      "projects_enforce_billable": false,
+      "limit_public_project_data": false,
+      "last_modified": "2025-02-23T00:00:00Z",
+      "reports_collapse": true,
+      "rounding": 1,
+      "rounding_minutes": 0,
+      "api_token": "93e20603da9844361cc1d9bf53040042",
+      "at": "2025-02-23T03:54:11+00:00",
+      "logo_url": "https://assets.track.toggl.com/images/workspace.jpg",
+      "ical_url": "/ical/workspace_user/247311eb7976ddcd2e0a6a692d22a142",
+      "ical_enabled": true,
+      "csv_upload": null,
+      "subscription": null,
+      "te_constraints": {},
+      "hide_start_end_times": false,
+      "working_hours_in_minutes": null
+    }
+  ],
+  "authorization_updated_at": "1970-01-01T00:00:00Z"
+}
