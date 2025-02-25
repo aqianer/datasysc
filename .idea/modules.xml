@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/datasysc.iml" filepath="$PROJECT_DIR$/.idea/datasysc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/PersonalDataVisualization.iml" filepath="$PROJECT_DIR$/.idea/PersonalDataVisualization.iml" />
     </modules>
   </component>
 </project>

@@ -207,3 +207,75 @@ CREATE TABLE daily_status
     UNIQUE KEY udx_user_date (user_id, record_date),
     INDEX idx_heatmap (record_date, heat_level)
 ) ENGINE = InnoDB COMMENT ='热力图数据存储表';
+
+-- 用户表
+CREATE TABLE users (
+    id                  INT AUTO_INCREMENT PRIMARY KEY,
+    username            VARCHAR(50)  NOT NULL UNIQUE COMMENT '用户名',
+    password            VARCHAR(255) NOT NULL COMMENT '密码哈希',
+    email               VARCHAR(100) NOT NULL UNIQUE COMMENT '邮箱',
+    nickname            VARCHAR(50)  DEFAULT NULL COMMENT '昵称',
+    avatar_url          VARCHAR(255) DEFAULT NULL COMMENT '头像URL',
+    
+    -- 第三方平台账号信息
+    github_username     VARCHAR(50)  DEFAULT NULL COMMENT 'GitHub用户名',
+    github_token        VARCHAR(255) DEFAULT NULL COMMENT 'GitHub访问令牌',
+    toggl_email         VARCHAR(100) DEFAULT NULL COMMENT 'Toggl邮箱',
+    toggl_api_token     VARCHAR(255) DEFAULT NULL COMMENT 'Toggl API Token',
+    toggl_workspace_id  INT          DEFAULT NULL COMMENT 'Toggl默认工作区ID',
+    
+    -- 用户状态
+    status             TINYINT      NOT NULL DEFAULT 1 COMMENT '状态：0-禁用，1-正常',
+    is_admin           BOOLEAN      NOT NULL DEFAULT FALSE COMMENT '是否管理员',
+    last_login_time    DATETIME     DEFAULT NULL COMMENT '最后登录时间',
+    last_login_ip      VARCHAR(45)  DEFAULT NULL COMMENT '最后登录IP',
+    
+    -- 时间戳
+    created_at         DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    updated_at         DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    
+    -- 其他信息
+    phone              VARCHAR(20)   DEFAULT NULL COMMENT '手机号',
+    timezone           VARCHAR(50)   DEFAULT 'Asia/Shanghai' COMMENT '时区',
+    language           VARCHAR(10)   DEFAULT 'zh-CN' COMMENT '语言偏好',
+    notification_prefs JSON         DEFAULT NULL COMMENT '通知偏好设置',
+    
+    -- 索引
+    INDEX idx_email (email),
+    INDEX idx_github_username (github_username),
+    INDEX idx_status (status)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '用户信息表';
+
+-- 用户登录历史表
+CREATE TABLE user_login_history (
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+    user_id         INT          NOT NULL COMMENT '用户ID',
+    login_time      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '登录时间',
+    login_ip        VARCHAR(45)  NOT NULL COMMENT '登录IP',
+    login_device    VARCHAR(255) NOT NULL COMMENT '登录设备信息',
+    login_status    TINYINT      NOT NULL COMMENT '登录状态：0-失败，1-成功',
+    login_type      VARCHAR(20)  NOT NULL DEFAULT 'password' COMMENT '登录方式：password-密码，github-GitHub',
+    
+    -- 外键约束
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    
+    -- 索引
+    INDEX idx_user_login (user_id, login_time)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '用户登录历史表';
+
+-- 用户令牌表
+CREATE TABLE user_tokens (
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+    user_id         INT          NOT NULL COMMENT '用户ID',
+    token_type      VARCHAR(20)  NOT NULL COMMENT '令牌类型：access-访问令牌，refresh-刷新令牌',
+    token_value     VARCHAR(255) NOT NULL COMMENT '令牌值',
+    expires_at      DATETIME     NOT NULL COMMENT '过期时间',
+    created_at      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    
+    -- 外键约束
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    
+    -- 索引
+    UNIQUE INDEX idx_token (token_value),
+    INDEX idx_user_token (user_id, token_type, expires_at)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '用户令牌表';
