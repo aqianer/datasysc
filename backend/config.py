@@ -3,7 +3,7 @@ from functools import lru_cache
 
 class Settings(BaseSettings):
     # 数据库配置
-    database_url: str = "mysql+pymysql://root:123456@localhost:3306/datasysc"
+    database_url: str = "mysql+pymysql://root:123456@localhost:3306/data_load"
     
     # JWT配置
     secret_key: str = "your-secret-key"  # 生产环境应使用环境变量
