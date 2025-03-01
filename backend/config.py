@@ -15,9 +15,11 @@ class Settings(BaseSettings):
     
     # Toggl配置
     toggl_api_token: str = ""
-    
+
+    vite_encryption_key: str  # 添加此行以允许该字段
     class Config:
         env_file = ".env"
+        extra = "allow"  # 允许额外字段
 
 @lru_cache()
 def get_settings():

@@ -8,12 +8,46 @@ from sqlalchemy.orm import Session
 from database import get_db
 from models import User
 from config import settings
+from Cryptodome.Cipher import AES
+from Cryptodome.Util.Padding import unpad
+import base64
+
+from logger import get_logger
+
+logger = get_logger(__name__)
 
 # 密码加密上下文
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # OAuth2 scheme
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+def decrypt_password(encrypted_password: str) -> str:
+    """解密前端加密的密码"""
+    try:
+        # 解码Base64密钥
+        key = base64.b64decode(settings.vite_encryption_key)
+        
+        # 解码Base64密文
+        combined = base64.b64decode(encrypted_password)
+        
+        # 前16字节是IV，后面的是加密数据
+        iv = combined[:16]
+        ciphertext = combined[16:]
+        
+        # 创建解密器
+        cipher = AES.new(key, AES.MODE_CBC, iv)
+        
+        # 解密并去除填充
+        decrypted = unpad(cipher.decrypt(ciphertext), AES.block_size)
+        
+        return decrypted.decode('utf-8')
+    except Exception as e:
+        logger.error(f"Password decryption failed: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid encrypted password"
+        )
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """验证密码"""

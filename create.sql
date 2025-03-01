@@ -279,3 +279,22 @@ CREATE TABLE user_tokens (
     UNIQUE INDEX idx_token (token_value),
     INDEX idx_user_token (user_id, token_type, expires_at)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = '用户令牌表';
+
+-- GitHub仓库表
+CREATE TABLE github_repos (
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+    user_id         INT          NOT NULL COMMENT '平台用户ID',
+    github_id       BIGINT       NOT NULL COMMENT 'GitHub仓库ID',
+    repo_name       VARCHAR(255) NOT NULL COMMENT '仓库名称',
+    fork_flag       BOOLEAN      NOT NULL DEFAULT FALSE COMMENT '是否为fork的仓库',
+    events_url      VARCHAR(512) NOT NULL COMMENT '事件URL',
+    description     TEXT COMMENT '仓库描述',
+    created_at      DATETIME     NOT NULL COMMENT '创建时间',
+    updated_at      DATETIME     NOT NULL COMMENT '更新时间',
+    pushed_at       DATETIME     NOT NULL COMMENT '最后推送时间',
+    status          TINYINT      NOT NULL DEFAULT 1 COMMENT '状态：1-正常，0-已删除',
+    
+    INDEX idx_user_repo (user_id, github_id),
+    INDEX idx_updated_at (updated_at),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT = 'GitHub仓库信息表';

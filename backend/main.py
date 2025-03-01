@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 import models
 import schemas
 import auth
+from auth import decrypt_password
 from database import engine, get_db
 from api import users, plans, github, toggl
 from logger import get_logger
@@ -38,7 +39,8 @@ logger.info("All routes registered successfully")
 @app.post("/api/token", response_model=schemas.Token)
 async def login(form_data: schemas.UserLogin, db: Session = Depends(get_db)):
     logger.info("userinfo successfully")
-    user = auth.authenticate_user(db, form_data.username, form_data.password)
+
+    user = auth.authenticate_user(db, form_data.username, decrypt_password(form_data.password))
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

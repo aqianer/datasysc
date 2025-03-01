@@ -98,4 +98,8 @@ class UserToken(Base):
     token_type = Column(String(20), nullable=False)
     token_value = Column(String(255), nullable=False, unique=True)
     expires_at = Column(DateTime, nullable=False)
-    created_at = Column(DateTime, nullable=False, server_default=func.now()) 
+    created_at = Column(DateTime, nullable=False, server_default=func.now())
+
+
+class GitHubRepo:
+    pass
