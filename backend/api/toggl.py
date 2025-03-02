@@ -13,10 +13,11 @@ logger = get_logger(__name__)
 
 router = APIRouter()
 
+
 @router.get("/projects", response_model=List[schemas.TogglProject])
 def get_toggl_projects(
-    current_user: models.User = Depends(auth.get_current_user),
-    db: Session = Depends(get_db)
+        current_user: models.User = Depends(auth.get_current_user),
+        db: Session = Depends(get_db)
 ):
     """从数据库获取最新的Toggl项目列表"""
     # 获取最新的toggl数据记录
@@ -25,34 +26,48 @@ def get_toggl_projects(
     ).order_by(
         desc(models.TogglData.update_time)
     ).first()
-    
+
     if not latest_toggl_data:
         raise HTTPException(
             status_code=404,
             detail="No Toggl data found"
         )
-    
+
     try:
         # 解析project_list JSON数据
-        project_list = json.loads(latest_toggl_data.project_list)
-        if not isinstance(project_list, dict) or 'projects' not in project_list:
-            raise ValueError("Invalid project list format")
-        
+        project_list = latest_toggl_data.project_list
+        # 提取所需字段并封装成 List[schemas.TogglProject]
+        logger.info(f"id:{project_list[0]['id']}")
+        logger.info(f"name:{project_list[0]['name']}")
+        logger.info(f"wid:{project_list[0]['wid']}")
+        projects = [
+            schemas.TogglProject(
+                id=int(project['id']),  # 确保将其转换为 int
+                name=project['name'],
+                workspace_id=int(project['wid']) if project['wid'] is not None else None  # 确保将其转换为 int
+            )
+            for project in project_list
+        ]
+        logger.info(f"projects:{projects}")
+        logger.info(f"project_list: {project_list}")
+
+
         # 返回项目列表
-        return project_list['projects']
+        return projects
     except (json.JSONDecodeError, ValueError) as e:
         raise HTTPException(
             status_code=500,
             detail=f"Failed to parse Toggl project data: {str(e)}"
         )
 
+
 @router.get("/tags", response_model=List[schemas.TogglTag])
 def get_toggl_tags(
-    current_user: models.User = Depends(auth.get_current_user),
-    db: Session = Depends(get_db)
+        current_user: models.User = Depends(auth.get_current_user),
+        db: Session = Depends(get_db)
 ):
     logger.info(f"Fetching Toggl tags for user: {current_user.username}")
-    
+
     if not current_user.toggl_api_token:
         logger.error(f"Toggl API token not configured for user: {current_user.username}")
         raise HTTPException(

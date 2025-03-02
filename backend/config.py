@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 from functools import lru_cache
+from typing import Optional
 
 class Settings(BaseSettings):
     # 数据库配置
@@ -10,8 +11,15 @@ class Settings(BaseSettings):
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
     
-    # GitHub配置
-    github_token: str = ""
+    # 密码加密密钥
+    vite_encryption_key: str
+    
+    # GitHub API配置
+    github_api_url: str = "https://api.github.com"
+    github_repo_type: str = "all"  # all, owner, member
+    github_repo_sort: str = "updated"  # created, updated, pushed, full_name
+    github_repo_direction: str = "desc"  # asc, desc
+    github_repo_per_page: int = 20
     
     # Toggl配置
     toggl_api_token: str = ""

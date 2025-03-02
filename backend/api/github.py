@@ -70,7 +70,7 @@ async def sync_github_repos(user: models.User, db: Session):
             
             db.commit()
 
-@router.get("/repos", response_model=List[schemas.GitHubRepo])
+@router.get("/repos", response_model=schemas.GitHubRepoList)
 async def get_github_repos(
     page: int = Query(1, gt=0),
     per_page: int = Query(5, gt=0, le=20),
@@ -78,6 +78,7 @@ async def get_github_repos(
     db: Session = Depends(get_db)
 ):
     """获取GitHub仓库列表，支持分页"""
+    # TODO 同步数据的部分放在 fetch_loader.py，脚本统一管理数据同步
     # 先同步最新数据
     await sync_github_repos(current_user, db)
     
