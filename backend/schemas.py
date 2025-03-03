@@ -125,10 +125,8 @@ class GitHubEvent(BaseModel):
 # 统计相关模型
 class DailyStatus(BaseModel):
     record_date: datetime
-    plan_status: Json
+    plan_status: Dict[str, Dict[str, Any]]
     heat_level: int
-    total_duration: int
-    is_core_completed: bool
 
 class DailyStatusResponse(DailyStatus, BaseResponse):
     id: int

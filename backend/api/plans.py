@@ -1,8 +1,8 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Dict
 import models, schemas, auth
 from config import settings
 from database import get_db
@@ -83,3 +83,49 @@ def delete_plan(
 
     db.delete(db_plan)
     db.commit()
+
+
+@router.get("/heatmap", response_model=List[schemas.DailyStatus])
+def get_heatmap_data(
+    current_user: models.User = Depends(auth.get_current_user),
+    db: Session = Depends(get_db)
+):
+    """获取用户的热力图数据"""
+    # TODO: 这里先返回模拟数据，后续需要从daily_status表获取实际数据
+    today = datetime.now().date()
+    start_date = today - timedelta(days=365)  # 获取过去一年的数据
+    
+    # 生成模拟数据
+    mock_data = []
+    current_date = start_date
+    while current_date <= today:
+        # 生成随机的计划完成详情
+        plan_status = {
+            "计划A": {
+                "completed": True,
+                "plan_type": 1,
+                "duration": 45
+            },
+            "计划B": {
+                "completed": False,
+                "plan_type": 2,
+                "duration": 28
+            }
+        }
+        
+        # 根据日期生成不同的热力等级
+        weekday = current_date.weekday()
+        if weekday < 5:  # 工作日
+            heat_level = min(4, max(1, (weekday + 1) % 5))
+        else:  # 周末
+            heat_level = max(0, weekday % 2)
+        
+        mock_data.append({
+            "record_date": current_date,
+            "plan_status": plan_status,
+            "heat_level": heat_level
+        })
+        
+        current_date += timedelta(days=1)
+    
+    return mock_data
