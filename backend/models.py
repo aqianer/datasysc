@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, JSON, ForeignKey, TIMESTAMP, Float, Date, DECIMAL, Text, BigInteger
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, JSON, ForeignKey, TIMESTAMP, Float, Date, DECIMAL, \
+    Text, BigInteger, SmallInteger
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
@@ -137,3 +138,20 @@ class UserToken(Base):
 
 # 添加反向关系
 User.personal_plans = relationship("PersonalPlan", back_populates="user")
+
+
+class GitHubEvents(Base):
+    __tablename__ = "github_events"
+
+    id = Column(Integer, primary_key=True, autoincrement=True, comment='自增主键')
+    user_id = Column(Integer, nullable=False, comment='关联本地用户系统ID')
+    github_user_id = Column(BigInteger, nullable=False, comment='GitHub用户数字ID')
+    event_type = Column(String(30), nullable=False, comment='事件类型（见附录）')
+    repo_id = Column(BigInteger, nullable=False, comment='仓库数字ID')
+    repo_name = Column(String(255), nullable=False, comment='owner/repo格式')
+    repo_url = Column(String(512), nullable=False, comment='仓库HTTPS地址')
+    event_time = Column(DateTime(3), nullable=False, comment='事件触发时间（含毫秒）')
+    event_date = Column(DateTime, comment='生成日期分区字段', index=True)
+    commit_count = Column(SmallInteger, default=0, nullable=True, comment='提交次数（仅PushEvent有效）')
+    code_changes = Column(JSON, nullable=True, comment='代码变更统计')
+    event_specific = Column(JSON, nullable=True, comment='事件特有数据')

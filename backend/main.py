@@ -7,7 +7,7 @@ import schemas
 import auth
 from auth import decrypt_password
 from database import engine, get_db
-from api import users, plans, github, toggl
+from api import users, plans, github, toggl, stats
 from logger import get_logger
 
 logger = get_logger(__name__)
@@ -32,6 +32,7 @@ app.include_router(users.router, prefix="/api/users", tags=["users"])
 app.include_router(plans.router, prefix="/api/plans", tags=["plans"])
 app.include_router(github.router, prefix="/api/github", tags=["github"])
 app.include_router(toggl.router, prefix="/api/toggl", tags=["toggl"])
+app.include_router(stats.router, prefix="/api/stats", tags=["stats"])
 logger.info("All routes registered successfully")
 
 
