@@ -94,7 +94,7 @@ def get_plan_duration_from_toggl(db: Session, user_id: int, project_id: int, dat
     toggl_data = db.query(models.TogglData).filter(
         models.TogglData.user_id == user_id
     ).order_by(
-        models.TogglData.update_time.desc()
+        models.TogglData.create_time.desc()
     ).first()
 
     if not toggl_data:
@@ -110,13 +110,14 @@ def get_plan_duration_from_toggl(db: Session, user_id: int, project_id: int, dat
 
         for entry in time_entries:
             entry_date = datetime.fromisoformat(entry['start']).date()
+
             if (entry_date == date and
-                    entry.get('pid') == project_id and
-                    entry.get('duration', 0) > 0):
-                # Toggl API返回的duration单位是秒，转换为分钟
+                    entry['project_id'] == project_id and
+                    entry['duration'] > 0):
+                # Toggl API返回的duration小时
                 total_duration += entry['duration'] / 60
 
-        return total_duration
+        return round(total_duration)
     except (KeyError, ValueError, TypeError) as e:
         logger.error(f"Error processing Toggl data: {str(e)}")
         return 0
@@ -146,7 +147,6 @@ def get_heatmap_data(
         models.PersonalPlan.plan_status == 2 # 进行中的计划
     )
 
-    plans_query = plans_query.filter(models.PersonalPlan.plan_type != 0)
 
     active_plans = plans_query.all()
 
@@ -176,7 +176,7 @@ def get_heatmap_data(
 
     for plan in active_plans:
         # 检查计划在当前日期是否有效
-            # 从toggl_datas获取实际时长
+        # 从toggl_datas获取实际时长
         actual_duration = get_plan_duration_from_toggl(
             db,
             current_user.id,
@@ -186,9 +186,9 @@ def get_heatmap_data(
 
         is_completed = actual_duration >= plan.daily_plan_duration
         plan_status[plan.plan_name] = {
+            "duration": actual_duration,
             "completed": is_completed,
-            "plan_type": plan.plan_type,
-            "duration": actual_duration
+            "plan_type": plan.plan_type
         }
         total_duration += actual_duration
         if plan.plan_type == 1:  # 核心计划（每日必做）
